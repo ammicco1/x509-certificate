@@ -10,7 +10,6 @@
 #define COMMON_NAME "localhost"
 #define PASSFRASE "defacing-paramount-collision"
 
-
 int main(int argc, char **argv){
     FILE *k, *p, *c;
     EVP_PKEY *key = EVP_PKEY_new(); /* allocate space for the private key, to deallocate use EVP_PKEY_free() */
@@ -41,7 +40,7 @@ int main(int argc, char **argv){
     PEM_write_PrivateKey(
         k,                                           /* write on file "f" */
         key,                                           /* set the key */
-        EVP_aes_128_cbc(),                           /* cipher for encrypting the key       if dont want to encrypt the key, pass NULL here*/
+        EVP_aes_256_cbc(),                           /* cipher for encrypting the key       if dont want to encrypt the key, pass NULL here*/
         (const unsigned char *) PASSFRASE,          /* passphrase for decrypt the key                                                ,here*/
         strlen(PASSFRASE),                        /* length of the passphrase string                                            and here*/
         NULL,                                         /* callback for requesting a password */
