@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <openssl//x509.h>
+#include <openssl/x509.h>
 #include <openssl/pem.h>
 
 #define RSA_LEN 2048
@@ -12,8 +12,8 @@
 
 int main(int argc, char **argv){
     FILE *k, *p, *c;
-    EVP_PKEY *key = EVP_PKEY_new(); /* allocate space for the private key, to deallocate use EVP_PKEY_free() */
-    X509 *x509 = X509_new(); /* allocate space for x509 cert, for deallocate use X509_free() */
+    EVP_PKEY *key = EVP_PKEY_new();                /* allocate space for the private key, to deallocate use EVP_PKEY_free() */
+    X509 *x509 = X509_new();                       /* allocate space for x509 cert, for deallocate use X509_free() */
     X509_NAME *name = X509_get_subject_name(x509); /* generate information of the cert */
 
     key = EVP_RSA_gen(RSA_LEN); /* generate rsa key */
@@ -25,8 +25,8 @@ int main(int argc, char **argv){
 
     X509_set_pubkey(x509, key); /* set the cert public key */
 
-    X509_NAME_add_entry_by_txt(name, "C",  MBSTRING_ASC, (unsigned char *) COUNTRY, -1, -1, 0); /* set country in the cert */
-    X509_NAME_add_entry_by_txt(name, "O",  MBSTRING_ASC, (unsigned char *) COMPANY, -1, -1, 0); /* set company name */
+    X509_NAME_add_entry_by_txt(name, "C",  MBSTRING_ASC, (unsigned char *) COUNTRY, -1, -1, 0);     /* set country in the cert */
+    X509_NAME_add_entry_by_txt(name, "O",  MBSTRING_ASC, (unsigned char *) COMPANY, -1, -1, 0);     /* set company name */
     X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, (unsigned char *) COMMON_NAME, -1, -1, 0); /* set common name */
     X509_set_issuer_name(x509, name); /* set issuer name */
 
@@ -39,23 +39,23 @@ int main(int argc, char **argv){
     /* save the private key to disk */
     PEM_write_PrivateKey(
         k,                                           /* write on file "f" */
-        key,                                           /* set the key */
+        key,                                         /* set the key */
         EVP_aes_256_cbc(),                           /* cipher for encrypting the key       if dont want to encrypt the key, pass NULL here*/
-        (const unsigned char *) PASSFRASE,          /* passphrase for decrypt the key                                                ,here*/
-        strlen(PASSFRASE),                        /* length of the passphrase string                                            and here*/
-        NULL,                                         /* callback for requesting a password */
-        NULL                                           /* data to pass to the callback */
+        (const unsigned char *) PASSFRASE,           /* passphrase for decrypt the key                                                ,here*/
+        strlen(PASSFRASE),                           /* length of the passphrase string                                            and here*/
+        NULL,                                        /* callback for requesting a password */
+        NULL                                         /* data to pass to the callback */
     );
 
     /* save pubblic key to disk */
     PEM_write_PUBKEY(
-        p, /* specify file to write */
-        key  /* indicate key */
+        p,  /* specify file to write */
+        key /* indicate key */
     );
 
     /* write the cert to disk */
     PEM_write_X509(
-        c, /* write the certificate on file "f" */
+        c,   /* write the certificate on file "f" */
         x509 /* indicate our certificate */
     );
 
