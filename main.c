@@ -1,4 +1,3 @@
-#include <openssl/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,13 +5,13 @@
 #include <openssl/pem.h>
 
 #define RSA_LEN 2048
-#define COUNTRY "IT"
-#define COMPANY "COMPANY NAME"
-#define COMMON_NAME "localhost"
-#define PASSFRASE "defacing-paramount-collision"
-#define PRIV_KEY_NAME "key.pem"
-#define PUB_KEY_NAME "key.pub"
-#define CERT_NAME "cert.pem"
+#define COUNTRY         "IT"
+#define COMPANY         "COMPANY NAME"
+#define COMMON_NAME     "localhost"
+#define PASSFRASE       "defacing-paramount-collision"
+#define PRIV_KEY_NAME   "key.pem"
+#define PUB_KEY_NAME    "key.pub"
+#define CERT_NAME       "cert.pem"
 
 int main(int argc, char **argv){
     FILE *k, *p, *c;
@@ -70,7 +69,6 @@ int main(int argc, char **argv){
 
     EVP_PKEY_free(key);
     X509_free(x509);
-    X509_NAME_free(name);
 
     return 0;
 }
