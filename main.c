@@ -9,6 +9,9 @@
 #define COMPANY "COMPANY NAME"
 #define COMMON_NAME "localhost"
 #define PASSFRASE "defacing-paramount-collision"
+#define PRIV_KEY_NAME "key.pem"
+#define PUB_KEY_NAME "key.pub"
+#define CERT_NAME "cert.pem"
 
 int main(int argc, char **argv){
     FILE *k, *p, *c;
@@ -32,9 +35,9 @@ int main(int argc, char **argv){
 
     X509_sign(x509, key, EVP_sha256()); /* sign the cert */
 
-    k = fopen("key.pem", "wb");
-    p = fopen("key.pub", "wb");
-    c = fopen("cert.pem", "wb");
+    k = fopen(PRIV_KEY_NAME, "wb");
+    p = fopen(PUB_KEY_NAME, "wb");
+    c = fopen(CERT_NAME, "wb");
     
     /* save the private key to disk */
     PEM_write_PrivateKey(
